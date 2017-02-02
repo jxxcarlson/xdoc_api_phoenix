@@ -11,9 +11,11 @@ defmodule XdocApi.DocumentView do
 
   def render("document.json", %{document: document}) do
     %{id: document.id,
+      author_id: document.author_id,
       title: document.title,
-      rendered_text: document.rendered_text,
-      author_id: document.author_id}
+      rendered_text: document.rendered_text
+      }
+
   end
 
     def render("editable_document.json", %{document: document}) do

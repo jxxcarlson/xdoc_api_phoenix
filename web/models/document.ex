@@ -2,6 +2,8 @@ defmodule XdocApi.Document do
   use XdocApi.Web, :model
 
   schema "documents" do
+    use Timex.Ecto.Timestamps
+
     field :title, :string
     field :author_id, :integer
     field :identifier, :string
@@ -26,7 +28,7 @@ defmodule XdocApi.Document do
 
     field :public, :boolean
     field :access_control_lists, {:array, :integer}
-    field :deleted
+    field :deleted, :boolean
 
     timestamps
   end
@@ -41,23 +43,47 @@ defmodule XdocApi.Document do
   end
 
   def initial_parameters do
-     [  "identifier": "-",
-        "type": "asciidoc",
-        "parent":  0,
-        "subdocuments":  [],
-        "associated_documents":  {},
-        "related_documents":  [],
-        "collections":  [],
-        "tags":  [],
-        "dict":  {},
+     %{  "identifier" => "-",
+        "type" => "asciidoc",
+        "parent" => 0,
 
-        "visit_count":  0,
-        "access_control_lists":  [],
+        "document_type" => "asciidoc",
+        "subdocuments" =>  [],
+        "associated_documents" =>  %{},
+        "related_documents" =>  [],
+        "collections" =>  [],
+        "tags" =>  [],
+        "dict" =>  %{},
 
-        "public":  false,
-        "deleted":  false
-     ]
+        "visit_count" =>  0,
+        "access_control_lists" =>  [],
+
+        "viewed_at" => Timex.now,
+        "edited_at" => Timex.now,
+
+        "public" =>  false,
+        "deleted" =>  false
+     }
   end
+
+  def initial_parameters2 do
+       %{  "identifier": "-",
+          "type": "asciidoc",
+          "parent":  0,
+          "subdocuments":  [],
+          "associated_documents":  {},
+          "related_documents":  [],
+          "collections":  [],
+          "tags":  [],
+          "dict":  {},
+
+          "visit_count":  0,
+          "access_control_lists":  [],
+
+          "public":  false,
+          "deleted":  false
+       }
+    end
 
 
   @doc """
@@ -65,14 +91,14 @@ defmodule XdocApi.Document do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, all_fields)
+    |> cast(params, all_fields())
 
     |> validate_required([:title, :text, :rendered_text, :author_id])
   end
 
   def update_changeset(struct, params \\ %{}) do
       struct
-      |> cast(params, all_fields)
+      |> cast(params, all_fields())
     end
 
 end

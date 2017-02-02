@@ -27,8 +27,9 @@ defmodule XdocApi.DocumentController do
   end
 
   def create(conn, %{"document" => document_params}) do
+    document_params = Map.merge(document_params, Document.initial_parameters())
     changeset = Document.changeset(%Document{}, document_params)
-
+    IO.inspect document_params
     case Repo.insert(changeset) do
       {:ok, document} ->
         conn
