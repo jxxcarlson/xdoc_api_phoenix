@@ -1,0 +1,4 @@
+links: {"images": "", "parent": {"id": 63, "url": "/documents/63", "title": "Readings", "author": "jc", "public": true, "author_id": 39, "identifier": "jc.qm:bn"}}
+dict: {"backup": {"date": "2016-09-07T15:49:57+00:00", "number": 1}}
+
+links for document 63:
